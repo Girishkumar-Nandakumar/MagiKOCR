@@ -1,0 +1,143 @@
+body {
+    font-family: 'Segoe UI', Tahoma, sans-serif;
+    background: linear-gradient(135deg, #667eea, #764ba2);
+    min-height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin: 0;
+}
+
+.container {
+    background: #ffffff;
+    padding: 30px 35px;
+    width: 750px;
+    border-radius: 14px;
+    box-shadow: 0 15px 35px rgba(0, 0, 0, 0.25);
+}
+
+h2 {
+    text-align: center;
+    color: #4b3f72;
+    margin-bottom: 25px;
+}
+
+form {
+    text-align: center;
+    padding: 20px;
+    background: #f4f6fb;
+    border-radius: 10px;
+    margin-bottom: 30px;
+}
+
+input[type="file"] {
+    margin-bottom: 15px;
+}
+
+label {
+    font-weight: 600;
+    color: #333;
+}
+
+select {
+    padding: 6px 10px;
+    border-radius: 6px;
+    border: 1px solid #ccc;
+}
+
+button {
+    margin-top: 15px;
+    padding: 10px 22px;
+    background: linear-gradient(135deg, #667eea, #764ba2);
+    color: white;
+    border: none;
+    border-radius: 25px;
+    font-size: 15px;
+    cursor: pointer;
+    transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+
+button:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 8px 20px rgba(0, 0, 0, 0.3);
+}
+
+h3 {
+    color: #4b3f72;
+    margin-bottom: 15px;
+}
+
+h4 {
+    margin-bottom: 6px;
+    color: #333;
+}
+
+textarea {
+    width: 100%;
+    padding: 12px;
+    border-radius: 8px;
+    border: 1px solid #ccc;
+    resize: vertical;
+    font-size: 14px;
+    background: #fafafa;
+}
+
+textarea:focus {
+    outline: none;
+    border-color: #764ba2;
+    background: #fff;
+}
+/* Drag & Drop Area */
+.drop-zone {
+    border: 2px dashed #764ba2;
+    border-radius: 10px;
+    padding: 30px;
+    text-align: center;
+    color: #555;
+    cursor: pointer;
+    background: #fafafa;
+    transition: background 0.3s, border-color 0.3s;
+}
+
+.drop-zone.dragover {
+    background: #ede9ff;
+    border-color: #667eea;
+}
+
+/* Loader */
+.loader {
+    display: none;
+    text-align: center;
+    margin-top: 20px;
+}
+
+.spinner {
+    width: 40px;
+    height: 40px;
+    border: 5px solid #ddd;
+    border-top: 5px solid #764ba2;
+    border-radius: 50%;
+    margin: auto;
+    animation: spin 1s linear infinite;
+}
+
+@keyframes spin {
+    0% { transform: rotate(0deg); }
+    100% { transform: rotate(360deg); }
+}
+#fileStatus {
+    margin-top: 20px;
+    background: #f4f6fb;
+    padding: 15px;
+    border-radius: 10px;
+}
+
+#fileStatus p {
+    margin: 5px 0;
+    font-size: 14px;
+}
+
+.done {
+    color: green;
+    font-weight: bold;
+}

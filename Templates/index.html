@@ -1,0 +1,128 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>OCR Web App (Advanced)</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+</head>
+<body>
+
+
+<div class="container">
+    <h2>📄 Batch OCR – Images & PDFs</h2>
+
+    <form method="POST" enctype="multipart/form-data" onsubmit="startProcessing()">
+
+        <!-- Drag & Drop -->
+        <div class="drop-zone" id="dropZone">
+            <p>Drag & drop files here<br>or<br><strong>Click to select</strong></p>
+            <input type="file" name="files" id="fileInput"
+                   accept=".png,.jpg,.jpeg,.pdf" multiple required hidden>
+        </div>
+
+        <br>
+
+        <label>Select Language:</label>
+        <select name="language">
+            <option value="eng">English</option>
+            <option value="hin">Hindi</option>
+            <option value="mal">Malayalam</option>
+        </select>
+
+        <br><br>
+        <button type="submit">Extract Text</button>
+    </form>
+
+    <!-- Per-file progress list -->
+    <div id="fileStatus"></div>
+
+    <!-- Loader -->
+    <div class="loader" id="loader">
+        <div class="spinner"></div>
+        <p>Processing files, please wait...</p>
+    </div>
+
+    {% if results %}
+    <h3>OCR Results</h3>
+    {% for item in results %}
+    <h4>📄 {{ item.filename }} <span class="done">✔ Completed</span></h4>
+    <textarea rows="8">{{ item.text }}</textarea>
+    <br><br>
+    {% endfor %}
+    {% endif %}
+</div>
+<script src="https://cdn.socket.io/4.5.4/socket.io.min.js"></script>
+
+<script>
+    const socket = io();
+
+    function startOCR() {
+        const files = document.getElementById("fileInput").files;
+        const language = document.querySelector("select").value;
+        let fileList = [];
+
+        for (let f of files) {
+            fileList.push({ name: f.name });
+        }
+
+        socket.emit('start_ocr', {
+            files: fileList,
+            language: language
+        });
+    }
+
+    socket.on('progress', data => {
+        const statusDiv = document.getElementById("fileStatus");
+        statusDiv.innerHTML += `<p>📄 ${data.file} → ${data.status}</p>`;
+    });
+
+    socket.on('finished', () => {
+        alert("OCR completed for all files!");
+    });
+</script>
+
+<script>
+    const dropZone = document.getElementById("dropZone");
+    const fileInput = document.getElementById("fileInput");
+    const fileStatus = document.getElementById("fileStatus");
+    const loader = document.getElementById("loader");
+
+    dropZone.addEventListener("click", () => fileInput.click());
+
+    dropZone.addEventListener("dragover", (e) => {
+        e.preventDefault();
+        dropZone.classList.add("dragover");
+    });
+
+    dropZone.addEventListener("dragleave", () => {
+        dropZone.classList.remove("dragover");
+    });
+
+    dropZone.addEventListener("drop", (e) => {
+        e.preventDefault();
+        dropZone.classList.remove("dragover");
+        fileInput.files = e.dataTransfer.files;
+        showFileQueue();
+    });
+
+    fileInput.addEventListener("change", showFileQueue);
+
+    function showFileQueue() {
+        fileStatus.innerHTML = "<h3>File Progress</h3>";
+        for (const file of fileInput.files) {
+            fileStatus.innerHTML += `<p>📄 ${file.name} → ⏳ Processing</p>`;
+        }
+    }
+
+    function startProcessing() {
+        loader.style.display = "block";
+    }
+<a href="/download/zip">
+    <button>Download ZIP</button>
+</a>
+
+</script>
+<p>Logged in as {{ session['user'] }} |
+    <a href="/logout">Logout</a></p>
+</body>
+</html>

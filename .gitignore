@@ -1,0 +1,12 @@
+# Python
+__pycache__/
+*.pyc
+venv/
+
+# App data
+uploads/
+results/
+users.db
+
+# OS
+.DS_Store
