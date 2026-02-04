@@ -53,7 +53,6 @@ The application follows a multi-tier architecture with secure user access, real-
 
 ## 🛠️ Setup & Run Instructions
 
-```bash
 # Clone the repository
 git clone https://github.com/Girishkumar-Nandakumar/MagiKOCR.git
 cd MagiKOCR
@@ -115,3 +114,12 @@ Tesseract OCR
 Flask & Flask-SocketIO communities
 
 Open-source contributors who make learning possible
+
+⚠️ Disclaimer
+
+MagiKOCR is a personal and educational project created to demonstrate OCR, web development, and real-time system capabilities.
+
+Users are responsible for ensuring that they have the legal right to upload, process, and use any images or documents provided to the application. The author does not claim ownership of any content processed through the application and is not responsible for the misuse of copyrighted or sensitive materials.
+
+This project does not store, share, or distribute user-uploaded files beyond local processing and is intended solely for learning, experimentation, and portfolio demonstration purposes.
+
